@@ -3,9 +3,9 @@ import './'
 import GitHubData from './components/GitHubData'
 
 const App = () => (
-    <div className="App">
+    
         <GitHubData />
-    </div>
+    
 
 
 )
