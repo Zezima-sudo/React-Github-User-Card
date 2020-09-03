@@ -8,7 +8,7 @@ class GitHubData extends React.Component {
     super()
     this.state = {
       userData: [],
-      followers: []
+      userFollowers: []
     }
   }
   componentDidMount() {
@@ -16,41 +16,60 @@ class GitHubData extends React.Component {
       .then(res => {
         const users = res.data
 
-        this.setState({ 
+        this.setState({
           userData: users,
-          
+
         })
         console.log(users)
 
       })
+
       axios.get('https://api.github.com/users/zezima-sudo/followers')
-      .then(res => {
-        const followers = res.data.repos_url
+  .then(res => {
+    const followers = res.data
 
-        this.setState({
-          followers: followers
-        })
-      })
-
-
+    this.setState({
+      userFollowers: followers
+    })
+    console.log(followers)
+    
+  })
+    
   }
+  handleSubmit = (e) => {
+    e.preventDefault()
+    alert(this.state.userFollowers)
+  
 
-
+}
   render() {
     return (
-     
-        <div className="App">
-      <h1>{this.state.userData.login}</h1>
-      <img
-      src={this.state.userData.avatar_url}
-       />
-       <h2>Followers: {this.state.followers}</h2>
+
+      <div className="App">
+        <h1>{this.state.userData.login}</h1>
+        <img
+          src={this.state.userData.avatar_url}
+        />
+
+
+      <div className="followers">
+        <h2>Followers</h2> 
+       
+       {this.state.userFollowers.map(item => (
+         <img src={item.avatar_url} />
+       ))}
+       
+        
+       </div>
+  
+        
+
       </div>
-          
-          ) 
-    
-    
-    
+
+    )
+
+
+
   }
 }
 
